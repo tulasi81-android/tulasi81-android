@@ -174,7 +174,7 @@ const App = () => {
           <div className="text-center mb-4">
             <img src="/college_logo.png" alt="Swarnandhra College" className="img-fluid rounded-lg shadow-sm mb-4" style={{ maxHeight: '180px', width: '100%', objectFit: 'cover' }} />
             <div className="brand-icon mx-auto mb-3" style={{ width: '50px', height: '50px', fontSize: '1.5rem' }}><FiLock /></div>
-            <h3>EDAS Admin</h3>
+            <h3>EDASapp Admin</h3>
             <p className="text-muted">Swarnandhra College of Engineering & Technology</p>
           </div>
           <Form onSubmit={handleLogin}>
@@ -196,7 +196,7 @@ const App = () => {
             <div className="navbar-brand">
               <img src="/college_logo.png" alt="Logo" className="rounded me-2" style={{ width: '32px', height: '32px', objectFit: 'cover' }} />
               <div className="brand-icon"><FiGrid /></div>
-              <span>EDAS Admin</span>
+              <span>EDASapp Admin</span>
             </div>
             <div className="d-flex align-items-center gap-2">
               <Nav variant="pills" className="bg-input rounded-pill p-1">
