@@ -88,14 +88,18 @@ const startServer = async () => {
     await connectDB();
     app.listen(PORT, () => {
       console.log(`\n🚀 EDASapp Backend running on PORT ${PORT}`);
-    console.log(`📋 API Health: http://localhost:${PORT}/api/health`);
-    console.log(`🔑 Auth:       POST http://localhost:${PORT}/api/auth/login`);
-    console.log(`📚 Duties:     GET  http://localhost:${PORT}/api/duties`);
-    console.log(`👥 Faculty:    GET  http://localhost:${PORT}/api/faculty`);
-    console.log(`🏢 Depts:      GET  http://localhost:${PORT}/api/departments`);
-    console.log(`📅 Timetables: GET  http://localhost:${PORT}/api/timetables`);
-    console.log(`⚡ Allotment:  POST http://localhost:${PORT}/api/allotment/run\n`);
-  });
+      console.log(`📋 API Health: http://localhost:${PORT}/api/health`);
+      console.log(`🔑 Auth:       POST http://localhost:${PORT}/api/auth/login`);
+      console.log(`📚 Duties:     GET  http://localhost:${PORT}/api/duties`);
+      console.log(`👥 Faculty:    GET  http://localhost:${PORT}/api/faculty`);
+      console.log(`🏢 Depts:      GET  http://localhost:${PORT}/api/departments`);
+      console.log(`📅 Timetables: GET  http://localhost:${PORT}/api/timetables`);
+      console.log(`⚡ Allotment:  POST http://localhost:${PORT}/api/allotment/run\n`);
+    });
+  } catch (err) {
+    console.error('Failed to start server:', err);
+    process.exit(1);
+  }
 };
 
 startServer();
