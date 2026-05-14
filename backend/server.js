@@ -1,81 +1,93 @@
 const express = require('express');
-const mongoose = require('mongoose');
 const cors = require('cors');
+const morgan = require('morgan');
 require('dotenv').config();
 
-const Duty = require('./models/Duty');
-const Timetable = require('./models/Timetable');
+const connectDB = require('./config/db');
+const errorHandler = require('./middleware/errorHandler');
 
+// Route imports
+const authRoutes = require('./routes/auth');
+const facultyRoutes = require('./routes/faculty');
+const departmentRoutes = require('./routes/departments');
+const dutyRoutes = require('./routes/duties');
+const timetableRoutes = require('./routes/timetables');
+const allotmentRoutes = require('./routes/allotment');
+const subjectRoutes = require('./routes/subjects');
+const path = require('path');
+
+// Initialize Express
 const app = express();
-app.use(cors());
-app.use(express.json());
 
-// --- Database Connection ---
-mongoose.connect(process.env.MONGODB_URI)
-  .then(() => console.log('Connected to MongoDB'))
-  .catch(err => console.error('MongoDB connection error:', err));
+// --- Middleware ---
+app.use(cors({
+  origin: process.env.CORS_ORIGIN || '*',
+  credentials: true
+}));
+app.use(express.json({ limit: '10mb' }));
+app.use(morgan('dev'));
 
-// --- API Endpoints: Duties ---
-app.get('/api/duties', async (req, res) => {
-  try {
-    const duties = await Duty.find().sort({ createdAt: -1 });
-    res.json(duties);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
+// Serve Static Files in Production
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, '../dist')));
+}
+
+// --- Health Check ---
+app.get('/api/health', (req, res) => {
+  res.json({
+    status: 'ok',
+    service: 'EDASapp Backend',
+    timestamp: new Date().toISOString()
+  });
 });
 
-app.post('/api/duties', async (req, res) => {
-  const duty = new Duty(req.body);
-  try {
-    const newDuty = await duty.save();
-    res.status(201).json(newDuty);
-  } catch (err) {
-    res.status(400).json({ message: err.message });
-  }
+// --- Welcome Route ---
+app.get('/', (req, res) => {
+  res.json({
+    message: 'Welcome to the EDASapp API',
+    endpoints: {
+      health: '/api/health',
+      auth: '/api/auth/login',
+      duties: '/api/duties'
+    }
+  });
 });
 
-app.put('/api/duties/:id', async (req, res) => {
-  try {
-    const updatedDuty = await Duty.findByIdAndUpdate(req.params.id, req.body, { new: true });
-    res.json(updatedDuty);
-  } catch (err) {
-    res.status(400).json({ message: err.message });
+// --- API Routes ---
+app.use('/api/auth', authRoutes);
+app.use('/api/faculty', facultyRoutes);
+app.use('/api/departments', departmentRoutes);
+app.use('/api/duties', dutyRoutes);
+app.use('/api/timetables', timetableRoutes);
+app.use('/api/allotment', allotmentRoutes);
+app.use('/api/subjects', subjectRoutes);
+
+// --- 404 Handler ---
+app.use((req, res, next) => {
+  if (process.env.NODE_ENV === 'production' && !req.path.startsWith('/api')) {
+    return res.sendFile(path.resolve(__dirname, '../', 'dist', 'index.html'));
   }
+  res.status(404).json({ message: `Route not found: ${req.method} ${req.originalUrl}` });
 });
 
-app.delete('/api/duties/:id', async (req, res) => {
-  try {
-    await Duty.findByIdAndDelete(req.params.id);
-    res.json({ message: 'Duty deleted' });
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-});
+// --- Global Error Handler ---
+app.use(errorHandler);
 
-// --- API Endpoints: Timetables ---
-app.get('/api/timetables', async (req, res) => {
-  try {
-    const timetables = await Timetable.find();
-    res.json(timetables);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-});
-
-app.post('/api/timetables', async (req, res) => {
-  const { facultyName, schedule } = req.body;
-  try {
-    const updatedTT = await Timetable.findOneAndUpdate(
-      { facultyName },
-      { schedule },
-      { upsert: true, new: true }
-    );
-    res.json(updatedTT);
-  } catch (err) {
-    res.status(400).json({ message: err.message });
-  }
-});
-
+// --- Start Server ---
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
+const startServer = async () => {
+  await connectDB();
+  app.listen(PORT, () => {
+    console.log(`\n🚀 EDASapp Backend running on http://localhost:${PORT}`);
+    console.log(`📋 API Health: http://localhost:${PORT}/api/health`);
+    console.log(`🔑 Auth:       POST http://localhost:${PORT}/api/auth/login`);
+    console.log(`📚 Duties:     GET  http://localhost:${PORT}/api/duties`);
+    console.log(`👥 Faculty:    GET  http://localhost:${PORT}/api/faculty`);
+    console.log(`🏢 Depts:      GET  http://localhost:${PORT}/api/departments`);
+    console.log(`📅 Timetables: GET  http://localhost:${PORT}/api/timetables`);
+    console.log(`⚡ Allotment:  POST http://localhost:${PORT}/api/allotment/run\n`);
+  });
+};
+
+startServer();
