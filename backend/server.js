@@ -6,6 +6,12 @@ require('dotenv').config();
 const connectDB = require('./config/db');
 const errorHandler = require('./middleware/errorHandler');
 
+console.log('--- Startup Debugging ---');
+console.log('NODE_ENV:', process.env.NODE_ENV);
+console.log('PORT:', process.env.PORT);
+console.log('MONGODB_URI present:', !!process.env.MONGODB_URI);
+console.log('------------------------');
+
 // Route imports
 const authRoutes = require('./routes/auth');
 const facultyRoutes = require('./routes/faculty');
@@ -77,9 +83,11 @@ app.use(errorHandler);
 const PORT = process.env.PORT || 5000;
 
 const startServer = async () => {
-  await connectDB();
-  app.listen(PORT, () => {
-    console.log(`\n🚀 EDASapp Backend running on http://localhost:${PORT}`);
+  try {
+    console.log('Attempting to connect to MongoDB...');
+    await connectDB();
+    app.listen(PORT, () => {
+      console.log(`\n🚀 EDASapp Backend running on PORT ${PORT}`);
     console.log(`📋 API Health: http://localhost:${PORT}/api/health`);
     console.log(`🔑 Auth:       POST http://localhost:${PORT}/api/auth/login`);
     console.log(`📚 Duties:     GET  http://localhost:${PORT}/api/duties`);
