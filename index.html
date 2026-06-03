@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduGuard - Teacher Portal & Secure Exams</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Google Fonts for premium typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- App Container -->
+    <div class="app-container" id="appShell">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo-container">
+                    <svg class="logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                        <path d="M12 8v4"/>
+                        <path d="M12 16h.01"/>
+                    </svg>
+                    <span class="logo-text">EduGuard</span>
+                </div>
+            </div>
+            
+            <nav class="sidebar-menu">
+                <button class="nav-item active" data-target="dashboard">
+                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="3" width="7" height="9" rx="1" />
+                        <rect x="14" y="3" width="7" height="5" rx="1" />
+                        <rect x="14" y="12" width="7" height="9" rx="1" />
+                        <rect x="3" y="16" width="7" height="5" rx="1" />
+                    </svg>
+                    <span>Dashboard</span>
+                </button>
+                <button class="nav-item" data-target="aboutme">
+                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                        <circle cx="12" cy="7" r="4"/>
+                    </svg>
+                    <span>About Me</span>
+                </button>
+                <button class="nav-item" data-target="subjects">
+                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+                        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+                    </svg>
+                    <span>Subjects</span>
+                </button>
+                <button class="nav-item" data-target="create-assignment">
+                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 5v14M5 12h14"/>
+                    </svg>
+                    <span>Create Assignment</span>
+                </button>
+                <button class="nav-item" data-target="simulator">
+                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polygon points="5 3 19 12 5 21 5 3"/>
+                    </svg>
+                    <span>Exam Simulator</span>
+                </button>
+                <button class="nav-item" data-target="reports">
+                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                        <polyline points="14 2 14 8 20 8"/>
+                        <line x1="16" y1="13" x2="8" y2="13"/>
+                        <line x1="16" y1="17" x2="8" y2="17"/>
+                        <polyline points="10 9 9 9 8 9"/>
+                    </svg>
+                    <span>Reports & Logs</span>
+                </button>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="user-badge">
+                    <div class="user-avatar" id="sidebarAvatar">T</div>
+                    <div class="user-details">
+                        <span class="user-name" id="sidebarName">Professor Raju</span>
+                        <span class="user-role">Administrator</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Header bar -->
+            <header class="content-header">
+                <h1 id="pageTitle">Dashboard Overview</h1>
+                <div class="header-actions">
+                    <span class="live-clock" id="liveClock">00:00:00 PM</span>
+                    <button class="theme-toggle" id="themeToggle" aria-label="Toggle Theme">
+                        <svg class="theme-icon sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="5"/>
+                            <line x1="12" y1="1" x2="12" y2="3"/>
+                            <line x1="12" y1="21" x2="12" y2="23"/>
+                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                            <line x1="1" y1="12" x2="3" y2="12"/>
+                            <line x1="21" y1="12" x2="23" y2="12"/>
+                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                        </svg>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Dynamic Views -->
+            <div class="view-viewport">
+                
+                <!-- VIEW: DASHBOARD -->
+                <section id="view-dashboard" class="app-view active">
+                    <div class="dashboard-welcome">
+                        <h2>Welcome back, <span class="teacher-highlight-name" id="dashWelcomeName">Professor Raju</span>! 👋</h2>
+                        <p>Here is your portal status, quick stats, and secure exam activity.</p>
+                    </div>
+                    
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon purple">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+                                    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+                                </svg>
+                            </div>
+                            <div class="stat-info">
+                                <span class="stat-label">Total Subjects</span>
+                                <h3 class="stat-value" id="statSubjects">0</h3>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon blue">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M9 11l3 3L22 4"/>
+                                    <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+                                </svg>
+                            </div>
+                            <div class="stat-info">
+                                <span class="stat-label">Assignments Made</span>
+                                <h3 class="stat-value" id="statAssignments">0</h3>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon green">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                                    <circle cx="9" cy="7" r="4"/>
+                                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                                    <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                                </svg>
+                            </div>
+                            <div class="stat-info">
+                                <span class="stat-label">Submissions</span>
+                                <h3 class="stat-value" id="statSubmissions">0</h3>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon red">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                                    <line x1="12" y1="9" x2="12" y2="13"/>
+                                    <line x1="12" y1="17" x2="12.01" y2="17"/>
+                                </svg>
+                            </div>
+                            <div class="stat-info">
+                                <span class="stat-label">Cheating Warnings</span>
+                                <h3 class="stat-value" id="statWarnings">0</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-details-grid">
+                        <div class="dashboard-column card-glass">
+                            <div class="card-header">
+                                <h3>Quick Profile Preview</h3>
+                                <button class="btn btn-sm btn-text nav-trigger" data-target="aboutme">View Full Profile</button>
+                            </div>
+                            <div class="quick-profile">
+                                <div class="profile-avatar-large" id="dashAvatar">T</div>
+                                <h4 id="dashName">Professor Tulasiraju</h4>
+                                <p class="profile-subtitle" id="dashTitle">Senior Lecturer in Computer Science</p>
+                                <hr class="card-divider">
+                                <div class="profile-mini-details">
+                                    <div class="mini-detail"><span class="detail-label">Office:</span> <span id="dashOffice">CS Building, Room 402</span></div>
+                                    <div class="mini-detail"><span class="detail-label">Email:</span> <span id="dashEmail">raju@university.edu</span></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="dashboard-column card-glass">
+                            <div class="card-header">
+                                <h3>Upcoming & Active Assignments</h3>
+                                <button class="btn btn-sm btn-primary nav-trigger" data-target="create-assignment">+ Create New</button>
+                            </div>
+                            <div class="quick-assignments-list" id="dashboardAssignmentsList">
+                                <div class="empty-state">
+                                    <p>No assignments created yet.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- VIEW: ABOUT ME -->
+                <section id="view-aboutme" class="app-view">
+                    <div class="profile-editor-layout">
+                        <!-- Left Side: Interactive Preview -->
+                        <div class="profile-card card-glass">
+                            <div class="profile-banner" id="profileCardBanner"></div>
+                            <div class="profile-card-content">
+                                <div class="avatar-upload-container">
+                                    <div class="profile-avatar-huge" id="profilePreviewAvatar">T</div>
+                                    <label class="avatar-edit-btn" for="avatarUploadInput">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+                                            <circle cx="12" cy="13" r="4"/>
+                                        </svg>
+                                    </label>
+                                    <input type="file" id="avatarUploadInput" accept="image/*" style="display: none;">
+                                </div>
+                                <h2 class="profile-full-name" id="profilePreviewName">Professor Tulasiraju</h2>
+                                <p class="profile-preview-title" id="profilePreviewTitle">Senior Lecturer in Computer Science</p>
+                                
+                                <div class="social-pills">
+                                    <a href="#" class="social-pill">GitHub</a>
+                                    <a href="#" class="social-pill">LinkedIn</a>
+                                    <a href="#" class="social-pill">Google Scholar</a>
+                                </div>
+
+                                <div class="profile-bio-box">
+                                    <h4>Biography</h4>
+                                    <p id="profilePreviewBio">Passionate computer science educator specializing in systems engineering, cybersecurity, and secure web application development. Committed to crafting high-fidelity educational tools and student exam environments.</p>
+                                </div>
+
+                                <div class="profile-quick-stats">
+                                    <div class="profile-stat-box">
+                                        <span class="p-stat-number" id="profileStatSubjects">5</span>
+                                        <span class="p-stat-label">Subjects</span>
+                                    </div>
+                                    <div class="profile-stat-box">
+                                        <span class="p-stat-number" id="profileStatYears">8+</span>
+                                        <span class="p-stat-label">Years Exp</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right Side: Edit Form & History Panels -->
+                        <div class="profile-right-panels-wrapper">
+                            <div class="profile-form-container card-glass">
+                                <h3>Edit Profile & Cover Presets</h3>
+                                <form id="profileEditForm" class="custom-form">
+                                    <div class="form-group">
+                                        <label for="formAvatarUpload">Update Profile Photo</label>
+                                        <input type="file" id="formAvatarUpload" class="form-control" accept="image/*">
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="profName">Display Name</label>
+                                            <input type="text" id="profName" class="form-control" value="Professor Tulasiraju" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="profTitle">Academic Title</label>
+                                            <input type="text" id="profTitle" class="form-control" value="Senior Lecturer in Computer Science" required>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="profBio">Academic Biography</label>
+                                        <textarea id="profBio" class="form-control" rows="3" required></textarea>
+                                    </div>
+
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="profEmail">Academic Email</label>
+                                            <input type="email" id="profEmail" class="form-control" value="raju@university.edu" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="profOffice">Office Location</label>
+                                            <input type="text" id="profOffice" class="form-control" value="CS Building, Room 402" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="profExpertise">Fields of Expertise (Comma-separated)</label>
+                                            <input type="text" id="profExpertise" class="form-control" value="Cybersecurity, Software Engineering, Web Systems">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="profExperience">Years of Experience</label>
+                                            <input type="number" id="profExperience" class="form-control" value="8" min="0">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="profGithub">GitHub Profile Link</label>
+                                            <input type="url" id="profGithub" class="form-control" placeholder="https://github.com/username">
+                                        </div>
+                                        <div class="form-group" style="visibility: hidden;">
+                                            <label>Placeholder</label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Profile Card Banner Theme</label>
+                                        <div class="theme-picker banner-picker">
+                                            <label class="theme-option" style="background: linear-gradient(135deg, #6366f1, #4f46e5);">
+                                                <input type="radio" name="bannerTheme" value="indigo" checked>
+                                                <span>Indigo</span>
+                                            </label>
+                                            <label class="theme-option" style="background: linear-gradient(135deg, #00f2fe, #4facfe);">
+                                                <input type="radio" name="bannerTheme" value="neon-teal">
+                                                <span>Teal Glow</span>
+                                            </label>
+                                            <label class="theme-option" style="background: linear-gradient(135deg, #f39c12, #2c3e50);">
+                                                <input type="radio" name="bannerTheme" value="obsidian-gold">
+                                                <span>Gold Slate</span>
+                                            </label>
+                                            <label class="theme-option" style="background: linear-gradient(135deg, #ff0844, #ffb199);">
+                                                <input type="radio" name="bannerTheme" value="sunset">
+                                                <span>Sunset Red</span>
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <button type="submit" class="btn btn-primary btn-block">Save Profile Changes</button>
+                                </form>
+                            </div>
+
+                            <!-- Interactive Education Timeline Manager -->
+                            <div class="profile-timeline-container card-glass" style="margin-top: 1.5rem;">
+                                <div class="card-header">
+                                    <h3>Academic Timeline & Qualifications</h3>
+                                    <button class="btn btn-sm btn-secondary" id="addTimelineItemBtn">+ Add Node</button>
+                                </div>
+                                
+                                <div class="academic-timeline-list" id="timelineList">
+                                    <!-- Populated dynamically -->
+                                </div>
+                            </div>
+
+                            <!-- Interactive Publications & Certificates Manager -->
+                            <div class="profile-timeline-container card-glass" style="margin-top: 1.5rem;">
+                                <div class="card-header">
+                                    <h3>Publications, Patents & Credentials</h3>
+                                    <button class="btn btn-sm btn-secondary" id="addPublicationBtn">+ Add Record</button>
+                                </div>
+                                
+                                <div class="publications-deck" id="publicationsList">
+                                    <!-- Populated dynamically -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Modal: Add Timeline Item -->
+                    <div class="modal-overlay" id="addTimelineModal">
+                        <div class="modal-card card-glass">
+                            <div class="modal-header">
+                                <h3>Add Academic / Career Node</h3>
+                                <button class="close-modal-btn" id="closeTimelineModal">&times;</button>
+                            </div>
+                            <form id="timelineForm" class="custom-form">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="tlTitle">Title / Role</label>
+                                        <input type="text" id="tlTitle" class="form-control" placeholder="e.g. Ph.D. in Computer Science" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="tlInstitution">Institution / Organization</label>
+                                        <input type="text" id="tlInstitution" class="form-control" placeholder="e.g. Stanford University" required>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="tlYears">Years Active</label>
+                                        <input type="text" id="tlYears" class="form-control" placeholder="e.g. 2018 - 2022" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="tlType">Category</label>
+                                        <select id="tlType" class="form-control" required>
+                                            <option value="edu" selected>Education</option>
+                                            <option value="exp">Teaching & Experience</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="modal-actions">
+                                    <button type="button" class="btn btn-secondary" id="cancelTimelineBtn">Cancel</button>
+                                    <button type="submit" class="btn btn-primary">Add Node</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Modal: Add Publication -->
+                    <div class="modal-overlay" id="addPubModal">
+                        <div class="modal-card card-glass">
+                            <div class="modal-header">
+                                <h3>Add Academic Publication / Credential</h3>
+                                <button class="close-modal-btn" id="closePubModal">&times;</button>
+                            </div>
+                            <form id="pubForm" class="custom-form">
+                                <div class="form-group">
+                                    <label for="pubTitle">Title of Record</label>
+                                    <input type="text" id="pubTitle" class="form-control" placeholder="e.g. A Secure Multi-Layer Invigilation Engine using Browser Sandboxes" required>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="pubJournal">Journal, Issuer or Venue</label>
+                                        <input type="text" id="pubJournal" class="form-control" placeholder="e.g. IEEE Transactions on Education" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="pubYear">Year Issued</label>
+                                        <input type="text" id="pubYear" class="form-control" placeholder="e.g. 2025" required>
+                                    </div>
+                                </div>
+                                <div class="modal-actions">
+                                    <button type="button" class="btn btn-secondary" id="cancelPubBtn">Cancel</button>
+                                    <button type="submit" class="btn btn-primary">Add Record</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- VIEW: SUBJECTS -->
+                <section id="view-subjects" class="app-view">
+                    <div class="section-action-header">
+                        <div>
+                            <h2>Subject Registry</h2>
+                            <p>Configure curriculum blocks. Adding or modifying subjects will update classroom options globally.</p>
+                        </div>
+                        <button class="btn btn-primary" id="openAddSubjectBtn">
+                            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 5v14M5 12h14"/>
+                            </svg>
+                            <span>Add New Subject</span>
+                        </button>
+                    </div>
+
+                    <!-- Subjects Board Grid -->
+                    <div class="subjects-grid" id="subjectsContainer">
+                        <!-- Dynamic content will load here -->
+                    </div>
+
+                    <!-- Modal for Adding Subject -->
+                    <div class="modal-overlay" id="addSubjectModal">
+                        <div class="modal-card card-glass">
+                            <div class="modal-header">
+                                <h3>Add New Academic Subject</h3>
+                                <button class="close-modal-btn" id="closeAddSubjectModal">&times;</button>
+                            </div>
+                            <form id="addSubjectForm" class="custom-form">
+                                <div class="form-group">
+                                    <label for="subjectName">Subject Title / Course Name</label>
+                                    <input type="text" id="subjectName" class="form-control" placeholder="e.g., Data Structures & Algorithms" required>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="subjectCode">Subject Code</label>
+                                        <input type="text" id="subjectCode" class="form-control" placeholder="e.g., CS-301" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="subjectYear">Year/Semester</label>
+                                        <input type="text" id="subjectYear" class="form-control" placeholder="e.g., Fall 2026" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Theme & Visual Accent</label>
+                                    <div class="theme-picker">
+                                        <label class="theme-option" style="background: linear-gradient(135deg, #6366f1, #4f46e5);">
+                                            <input type="radio" name="subjectTheme" value="indigo" checked>
+                                            <span>Indigo</span>
+                                        </label>
+                                        <label class="theme-option" style="background: linear-gradient(135deg, #06b6d4, #0891b2);">
+                                            <input type="radio" name="subjectTheme" value="cyan">
+                                            <span>Cyan</span>
+                                        </label>
+                                        <label class="theme-option" style="background: linear-gradient(135deg, #10b981, #059669);">
+                                            <input type="radio" name="subjectTheme" value="emerald">
+                                            <span>Emerald</span>
+                                        </label>
+                                        <label class="theme-option" style="background: linear-gradient(135deg, #f59e0b, #d97706);">
+                                            <input type="radio" name="subjectTheme" value="amber">
+                                            <span>Amber</span>
+                                        </label>
+                                        <label class="theme-option" style="background: linear-gradient(135deg, #ef4444, #dc2626);">
+                                            <input type="radio" name="subjectTheme" value="rose">
+                                            <span>Rose</span>
+                                        </label>
+                                        <label class="theme-option" style="background: linear-gradient(135deg, #a855f7, #9333ea);">
+                                            <input type="radio" name="subjectTheme" value="purple">
+                                            <span>Purple</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="modal-actions">
+                                    <button type="button" class="btn btn-secondary" id="cancelSubjectBtn">Cancel</button>
+                                    <button type="submit" class="btn btn-primary">Create Subject</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- VIEW: CREATE ASSIGNMENT -->
+                <section id="view-create-assignment" class="app-view">
+                    <div class="assignment-builder-layout">
+                        <!-- Left Side: Basic Parameters -->
+                        <div class="builder-inputs-container card-glass">
+                            <h3>Create Secure Exam / Assignment</h3>
+                            <form id="assignmentCreateForm" class="custom-form">
+                                <div class="form-group">
+                                    <label for="assignTitle">Assignment Title</label>
+                                    <input type="text" id="assignTitle" class="form-control" placeholder="e.g., Cryptography Midterm 2026" required>
+                                </div>
+                                
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="assignSubject">Associated Subject</label>
+                                        <select id="assignSubject" class="form-control" required>
+                                            <option value="" disabled selected>Select Subject...</option>
+                                            <!-- Dynamically filled -->
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="assignActiveTime">Activation Date & Time</label>
+                                        <input type="datetime-local" id="assignActiveTime" class="form-control" required>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>Submission Duration</label>
+                                        <div class="locked-value-badge">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="badge-icon">
+                                                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                                                <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                                            </svg>
+                                            <span>25 Minutes (Locked Duration)</span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="assignViolationLimit">Max Window-Switch Violations</label>
+                                        <select id="assignViolationLimit" class="form-control">
+                                            <option value="1">1 Violation (Immediate Fail)</option>
+                                            <option value="2" selected>2 Violations (1 Warning)</option>
+                                            <option value="3">3 Violations (2 Warnings)</option>
+                                            <option value="5">5 Violations (High Tolerance)</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="security-features-card">
+                                    <div class="security-card-header">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="shield-pulse">
+                                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                                        </svg>
+                                        <span>Proctoring Security Rules Activated</span>
+                                    </div>
+                                    <ul class="security-rules-list">
+                                        <li>
+                                            <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                                                <polyline points="20 6 9 17 4 12"/>
+                                            </svg>
+                                            <span>Force browser into Fullscreen Sandbox</span>
+                                        </li>
+                                        <li>
+                                            <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                                                <polyline points="20 6 9 17 4 12"/>
+                                            </svg>
+                                            <span>Log/Warn window-switching or new-tab focus loss</span>
+                                        </li>
+                                        <li>
+                                            <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                                                <polyline points="20 6 9 17 4 12"/>
+                                            </svg>
+                                            <span>Disable keyboard shortcut overrides (Alt+Tab, F12, PrintScreen)</span>
+                                        </li>
+                                        <li>
+                                            <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                                                <polyline points="20 6 9 17 4 12"/>
+                                            </svg>
+                                            <span>Disable right-click copy & paste triggers</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- Right Side: Questions Creator with Multi-Format drop-down templates -->
+                        <div class="builder-questions-container card-glass">
+                            <div class="questions-header">
+                                <h3>Assignment Questions</h3>
+                                <div class="question-type-triggers" style="display:flex;gap:0.35rem;flex-wrap:wrap">
+                                    <button type="button" class="btn btn-sm btn-secondary add-q-btn" data-type="MCQ">+ MCQ</button>
+                                    <button type="button" class="btn btn-sm btn-secondary add-q-btn" data-type="MSQ">+ MSQ</button>
+                                    <button type="button" class="btn btn-sm btn-secondary add-q-btn" data-type="TF">+ True/False</button>
+                                    <button type="button" class="btn btn-sm btn-secondary add-q-btn" data-type="WRITTEN">+ Essay</button>
+                                </div>
+                            </div>
+                            
+                            <div class="questions-list-wrapper" id="questionsContainer">
+                                <!-- Question cards will be dynamically appended here -->
+                                <div class="empty-state" id="noQuestionsState">
+                                    <p>No questions added. Select a format button (+ MCQ, + MSQ, + True/False, + Essay) to start writing questions.</p>
+                                </div>
+                            </div>
+
+                            <button type="button" class="btn btn-primary btn-block btn-lg" id="submitAssignmentBtn" style="margin-top: 1.5rem;">
+                                Complete & Schedule Assignment
+                            </button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- VIEW: EXAM SIMULATOR -->
+                <section id="view-simulator" class="app-view">
+                    <div class="simulator-intro card-glass">
+                        <h2>Secure Exam Simulator</h2>
+                        <p>Simulate a student taking one of your scheduled assignments under absolute proctoring lockdown. This is the sandbox interface that validates your proctoring engines.</p>
+                    </div>
+
+                    <div class="simulator-dashboard">
+                        <div class="card-glass shadow-none">
+                            <h3>Available Assignments</h3>
+                            <div class="available-exams-grid" id="availableExamsContainer">
+                                <!-- Populated dynamically -->
+                            </div>
+                        </div>
+
+                        <div class="student-profile-panel card-glass">
+                            <h3>Student Persona Details</h3>
+                            <div class="student-card">
+                                <div class="student-avatar">📖</div>
+                                <div class="student-details">
+                                    <input type="text" id="simStudentName" class="form-control form-control-dark" value="Alex Mercer" placeholder="Enter Mock Student Name">
+                                    <input type="text" id="simStudentId" class="form-control form-control-dark" value="ST-99402" placeholder="Student ID">
+                                </div>
+                            </div>
+                            <div class="simulator-alert-box warning">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="box-icon">
+                                    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                                    <line x1="12" y1="9" x2="12" y2="13"/>
+                                    <line x1="12" y1="17" x2="12.01" y2="17"/>
+                                </svg>
+                                <div>
+                                    <h5>Lockdown Protocol Active</h5>
+                                    <p>Upon launching the exam, the system will enter Fullscreen mode. Closing full screen or clicking away will fire security warnings!</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- VIEW: REPORTS -->
+                <section id="view-reports" class="app-view">
+                    <div class="reports-header card-glass">
+                        <div>
+                            <h2>Proctoring Reports & Student Submissions</h2>
+                            <p>Detailed view of completed tests, security violation timelines, and student scores.</p>
+                        </div>
+                        <button class="btn btn-secondary" id="clearReportsBtn">Clear Submission History</button>
+                    </div>
+
+                    <div class="reports-container">
+                        <!-- Submissions Table -->
+                        <div class="reports-table-card card-glass">
+                            <table class="reports-table">
+                                <thead>
+                                    <tr>
+                                        <th>Student</th>
+                                        <th>Assignment</th>
+                                        <th>Subject</th>
+                                        <th>Score</th>
+                                        <th>Violations</th>
+                                        <th>Status</th>
+                                        <th>Date Submitted</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="reportsTableBody">
+                                    <!-- Dynamic rows -->
+                                    <tr class="empty-row">
+                                        <td colspan="8" style="text-align: center; padding: 3rem; color: var(--text-muted);">
+                                            No student submissions have been recorded yet. Set up an assignment and use the Simulator to generate reports.
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Modal for Detailed Invigilation Report & Subjective Grading Desk -->
+                    <div class="modal-overlay" id="violationDetailModal">
+                        <div class="modal-card modal-lg card-glass">
+                            <div class="modal-header">
+                                <h3 id="violationModalHeader">Detailed Invigilation Audit</h3>
+                                <button class="close-modal-btn" id="closeViolationModal">&times;</button>
+                            </div>
+                            <div class="violation-modal-content">
+                                <div class="audit-summary-grid">
+                                    <div class="audit-widget">
+                                        <span class="a-label">Student Name</span>
+                                        <span class="a-value" id="auditStudentName">-</span>
+                                    </div>
+                                    <div class="audit-widget">
+                                        <span class="a-label">Final Grade</span>
+                                        <span class="a-value" id="auditScore">-</span>
+                                    </div>
+                                    <div class="audit-widget">
+                                        <span class="a-label">Violations Count</span>
+                                        <span class="a-value text-danger" id="auditViolationsCount">0</span>
+                                    </div>
+                                    <div class="audit-widget">
+                                        <span class="a-label">Submission Trigger</span>
+                                        <span class="a-value" id="auditSubmitType">-</span>
+                                    </div>
+                                </div>
+
+                                <div class="audit-timeline-container">
+                                    <h4>Security Incident Timeline Log</h4>
+                                    <div class="timeline" id="auditTimeline">
+                                        <!-- Dynamic items -->
+                                    </div>
+                                </div>
+
+                                <!-- Dynamic Teacher Grading Workspace (Only active when grading is required) -->
+                                <div class="teacher-grading-workspace-box" id="gradingWorkspace" style="display:none;">
+                                    <hr class="card-divider">
+                                    <h4 class="grading-title-bar">📖 Subjective Written Grading Desk</h4>
+                                    <p class="grading-subtitle">Review written essays below. Score points and provide professional feedback.</p>
+                                    
+                                    <form id="gradingForm" class="custom-form" style="margin-top:1rem;">
+                                        <div id="writtenQuestionsGradingList">
+                                            <!-- Dynamically generated list of written answers -->
+                                        </div>
+                                        <button type="submit" class="btn btn-primary" style="margin-top:1rem;">Finalize and Register Grades</button>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="modal-actions">
+                                <button type="button" class="btn btn-secondary" id="closeViolationModalBtn">Close Audit Log</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- MOCK STUDENT GATEWAY (OVERLAY BEFORE EXAM STARTS) -->
+    <div class="student-gateway-overlay" id="studentGateway">
+        <div class="gateway-container card-glass">
+            <div class="gateway-header">
+                <svg class="gateway-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                </svg>
+                <h2>Secure Exam Gateway</h2>
+            </div>
+            
+            <div class="gateway-body">
+                <div class="gateway-meta-card">
+                    <h3 id="gwExamTitle">Cryptography Final Exam</h3>
+                    <div class="meta-row">
+                        <span><strong>Subject:</strong> <span id="gwExamSubject">Computer Science</span></span>
+                        <span><strong>Duration:</strong> 25 Minutes</span>
+                    </div>
+                    <div class="meta-row">
+                        <span><strong>Active Status:</strong> <span class="badge" id="gwExamStatus">Waiting...</span></span>
+                    </div>
+                </div>
+
+                <div class="gateway-countdown-container" id="gwCountdownBox">
+                    <span class="countdown-label">Exam Starts In</span>
+                    <div class="countdown-digits" id="gwCountdownDigits">00:00:00</div>
+                </div>
+
+                <div class="exam-instructions">
+                    <h4>Required Security Policies:</h4>
+                    <ul>
+                        <li><strong>Forced Fullscreen:</strong> You will be entered into full screen. Exiting will flag your test.</li>
+                        <li><strong>Window Tracking:</strong> Tab switches or program overlaps will trigger active cheat logging.</li>
+                        <li><strong>Webcam Feed:</strong> Standard AI webcam checking tracks eye metrics in real-time.</li>
+                        <li><strong>Keyboard Lockout:</strong> Key overrides and DevTools hotkeys are disabled.</li>
+                        <li><strong>Auto-Submit:</strong> System automatically locks and submits your work at 25 minutes.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="gateway-footer">
+                <button class="btn btn-secondary" id="exitGatewayBtn">Cancel and Return</button>
+                <button class="btn btn-primary" id="startSecureExamBtn" disabled>Launch Sandbox Exam</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MOCK SECURE EXAM ROOM (SANDBOX ENVIRONMENT) -->
+    <div class="secure-exam-overlay" id="secureExamRoom">
+        <header class="exam-room-header">
+            <div class="exam-details">
+                <span class="exam-title-badge" id="examRoomTitle">Cryptography Midterm</span>
+                <span class="student-badge-dark" id="examRoomStudent">Alex Mercer (ST-99402)</span>
+            </div>
+            
+            <div class="exam-security-status">
+                <div class="shield-badge secured">
+                    <svg class="shield-icon spin-slow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                    </svg>
+                    <span>SECURED PROCTOR ACTIVE</span>
+                </div>
+                <div class="exam-timer-box" id="examTimer">
+                    <span class="timer-label">Time Remaining:</span>
+                    <span class="timer-value" id="examTimerValue">25:00</span>
+                </div>
+            </div>
+        </header>
+
+        <main class="exam-room-body">
+            <!-- Simulated AI Proctor Webcam / Eye Radar Tracker Widget -->
+            <div class="biometric-webcam-card" id="webcamFeedCard">
+                <div class="webcam-camera-wrapper">
+                    <!-- Real Webcam Video tag -->
+                    <video id="webcamVideo" autoplay playsinline muted style="display:none;"></video>
+                    <!-- Simulated Scanner Radar Canvas overlay -->
+                    <div class="webcam-sim-canvas" id="webcamRadarCanvas">
+                        <div class="radar-circle"></div>
+                        <div class="radar-line"></div>
+                        <div class="radar-points"></div>
+                    </div>
+                    <div class="biometric-scan-effect"></div>
+                </div>
+                <div class="webcam-footer">
+                    <span class="webcam-dot blink-indicator"></span>
+                    <span class="webcam-status-label" id="webcamStatusLabel">Simulating Webcam Proctor...</span>
+                </div>
+            </div>
+
+            <!-- Questions Sheet Pane -->
+            <div class="exam-questions-pane" id="examQuestionsContainer">
+                <!-- Dynamically injected questions -->
+            </div>
+            
+            <!-- Floating Warnings Overlay (triggers when focusing away or closing fullscreen) -->
+            <div class="security-warning-overlay" id="securityWarningOverlay">
+                <div class="warning-dialog">
+                    <div class="warning-icon">⚠️</div>
+                    <h3>SECURITY VIOLATION DETECTED</h3>
+                    <p id="securityWarningText">You have attempted to exit full screen or click out of the examination window. This action has been logged by the invigilator.</p>
+                    <div class="violation-count-badge">
+                        Violation <span id="currentViolationCount">0</span> of <span id="allowedViolationLimit">2</span>
+                    </div>
+                    <button class="btn btn-danger btn-block" id="acknowledgeWarningBtn">Return to Secure Exam</button>
+                </div>
+            </div>
+        </main>
+
+        <footer class="exam-room-footer">
+            <div class="safety-info">
+                <span>⚠️ Do not press Esc, open new tabs, or Alt+Tab. Your window changes are logged.</span>
+            </div>
+            <button class="btn btn-primary" id="finishExamBtn">Submit Examination</button>
+        </footer>
+    </div>
+
+    <!-- JS Scripts -->
+    <script src="security.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
